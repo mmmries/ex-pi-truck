@@ -1,7 +1,7 @@
 Truck
 =====
 
-An Elixir Program that runs on my [Raspberry Pi A+](https://www.raspberrypi.org/products/model-a-plus/) and controls an RX transmitter to send commmands to a cheap [RC Truck](http://www.walmart.com/ip/New-Bright-1-24-Radio-Control-Full-Function-Jeep-Wrangler-Green/38069358).
+An Elixir Program that runs on my [Raspberry Pi A+](https://www.raspberrypi.org/products/model-a-plus/) and controls an RX transmitter to send commmands to a cheap [RC Truck](http://www.walmart.com/ip/New-Bright-1-24-Radio-Control-Full-Function-Jeep-Wrangler-Green/38069358). I got a lot of help from reading [a blog post from Andrew Chalkley](http://www.forefront.io/a/hacking-9-buck-remote-controlled-car-with-arduino) who used an Arduino with a similar RC car.
 
 ## Hardware Setup
 In order to minimize reverse-engineering I decided to hack into the transmitter side of this little RC truck.
