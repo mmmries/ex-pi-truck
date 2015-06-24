@@ -3,7 +3,7 @@ defmodule Driver do
 
   def stop, do: set_pins(forwards: false, backwards: false, left: false, right: false)
   def forward, do: set_pins(forwards: true, backwards: false, left: false, right: false)
-  def backwards, do: set_pins(forwards: false, backwards: true, left: false, right: false)
+  def backward, do: set_pins(forwards: false, backwards: true, left: false, right: false)
   def right, do: set_pins(forwards: true, backwards: false, left: false, right: true)
   def left, do: set_pins(forwards: true, backwards: false, left: true, right: false)
   def back_right, do: set_pins(forwards: false, backwards: true, left: false, right: true)
