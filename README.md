@@ -17,10 +17,10 @@ I've also soldered some leads to the solder points on the transmitter named:
 
 Then I connect these leads to the Pi like this:
 
-* TP2 => [Pin 11](http://pi.gadgetoid.com/pinout/pin11_gpio17)
-* TP9 => [Pin 15](http://pi.gadgetoid.com/pinout/pin15_gpio22)
-* TP6 => [Pin 16](http://pi.gadgetoid.com/pinout/pin16_gpio23)
-* TP7 => [Pin 18](http://pi.gadgetoid.com/pinout/pin18_gpio24)
+* Right => TP2 => [Pin 11](http://pi.gadgetoid.com/pinout/pin11_gpio17) => BCM 17
+* Left => TP9 => [Pin 15](http://pi.gadgetoid.com/pinout/pin15_gpio22) => BCM 22
+* Forward => TP6 => [Pin 16](http://pi.gadgetoid.com/pinout/pin16_gpio23) => BCM 23
+* Backward => TP7 => [Pin 18](http://pi.gadgetoid.com/pinout/pin18_gpio24) => BCM 24
 
 ## Software Setup
 Similar to my [Raspberry Pi Clock](https://github.com/mmmries/pi-alarm-clock) I am using Elixir and a Raspberry Pi.
