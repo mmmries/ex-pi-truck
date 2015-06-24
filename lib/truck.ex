@@ -7,10 +7,10 @@ defmodule Truck do
     import Supervisor.Spec, warn: false
 
     children = [
-      worker(Blinky.Gpio, [17, [name: :right]], id: :right),
-      worker(Blinky.Gpio, [22, [name: :left]], id: :left),
-      worker(Blinky.Gpio, [23, [name: :forwards]], id: :forwards),
-      worker(Blinky.Gpio, [24, [name: :backwards]], id: :backwards),
+      worker(Gpio, [17, [name: :right]], id: :right),
+      worker(Gpio, [22, [name: :left]], id: :left),
+      worker(Gpio, [23, [name: :forwards]], id: :forwards),
+      worker(Gpio, [24, [name: :backwards]], id: :backwards),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
