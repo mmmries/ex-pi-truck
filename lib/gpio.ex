@@ -19,12 +19,17 @@ defmodule Gpio do
   ## GenServer callbacks
 
   def init(pin_number) when is_number(pin_number) do
+    Logger.info "Setting up pin #{pin_number}"
     case write_ignore_ebusy(@export, "#{pin_number}") do
-      {:error, err} -> {:stop, err}
       :ok ->
         case write_ignore_ebusy(pin_direction_path(pin_number), "out") do
-          {:error, err} -> {:stop, err}
-          :ok -> {:ok, pin_number}
+          :ok ->
+            case write_ignore_ebusy(pin_active_low_path(pin_number), "1") do
+              :ok ->
+                case write_ignore_ebusy(pin_value_path(pin_number), "0") do
+                  :ok -> {:ok, pin_number}
+                end
+            end
         end
     end
   end
@@ -52,6 +57,7 @@ defmodule Gpio do
 
   defp pin_direction_path(pin_number), do: "/sys/class/gpio/gpio#{pin_number}/direction"
   defp pin_value_path(pin_number), do: "/sys/class/gpio/gpio#{pin_number}/value"
+  defp pin_active_low_path(pin_number), do: "/sys/class/gpio/gpio#{pin_number}/active_low"
 
   defp write(path, data) do
     case Mix.env do
@@ -65,9 +71,13 @@ defmodule Gpio do
   # it just means we don't need to re-initialize the pin
   defp write_ignore_ebusy(path, data) do
     case write(path, data) do
-      {:error, :ebusy} -> :ok
+      {:error, :ebusy} ->
+        Logger.error "got :ebusy when writing '#{data}' to '#{path}'"
+        :ok
       :ok -> :ok
-      {:error, err} -> {:error, err}
+      {:error, err} ->
+        Logger.error "got #{err} when writing '#{data}' to '#{path}'"
+        {:error, err}
     end
   end
 end
