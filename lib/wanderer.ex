@@ -5,17 +5,20 @@ defmodule Wanderer do
   @interval 1_000
 
   ## Public Interface
-  def start_link(wandering?), do: GenServer.start_link(__MODULE__, nil)
-  def pause, do:
-  def resume, do:
+  def start_link(wandering?), do: GenServer.start_link(__MODULE__, wandering?, name: __MODULE__)
+  def pause, do: GenServer.cast(__MODULE__, :pause)
+  def resume, do: GenServer.cast(__MODULE__, :resume)
 
   ## GenServer Callbacks
-  def init(_initial_state) do
+  def init(wandering?) do
     :random.seed(:os.timestamp)
-    {:ok, nil, @interval}
+    {:ok, wandering?, @interval}
   end
 
-  def handle_cast(:pause, _wandering?), do: {:noreply, false, @interval}
+  def handle_cast(:pause, _wandering?) do
+    Driver.stop
+    {:noreply, false, @interval}
+  end
   def handle_cast(:resume, _wandering?), do: {:noreply, true, @interval}
   def handle_info(:timeout, false), do: {:noreply, false, @interval}
   def handle_info(:timeout, true) do
