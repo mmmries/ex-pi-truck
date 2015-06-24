@@ -15,7 +15,6 @@ defmodule Driver do
     set_pins(tail)
   end
 
-  # The TX pins are active LOW
-  defp set_pin(pin, true), do: Gpio.turn_off(pin)
+  defp set_pin(pin, true), do: Gpio.turn_on(pin)
   defp set_pin(pin, false), do: Gpio.turn_off(pin)
 end
