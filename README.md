@@ -81,3 +81,42 @@ cd /opt/elixir-1.0.4
 unzip precompiled.zip
 echo 'export PATH=/opt/elixir-1.0.4/bin:$PATH' >> /etc/bash.bashrc
 ```
+
+## Project Setup
+
+We need to install the code that knows how to run the truck signals.
+
+### Setup the Project Code
+
+On the raspberry pi run the following commands.
+
+```
+sudo su - # we always run as root so we have access to the GPIO pins
+cd /opt
+git clone https://github.com/mmmries/ex-pi-truck.git
+cd ex-pi-truck
+cp upstart /etc/init/truck.conf #this will automatically start the project each time the pi is powered on
+mix local.hex # confirm that you want to install/update hex
+mix deps.get
+MIX_ENV=prod mix compile
+start truck
+```
+
+### Control the Truck
+
+Now from another computer on the network open a remote shell like this
+
+```
+iex --sname laptop --cookie pi --remsh truck@pi3
+```
+
+This will let you send driving commands and turn the Wanderer on/off.
+
+```
+Driver.forward
+Driver.stop
+Driver.backwards
+Driver.stop
+Wanderer.resume
+Wanderer.pause
+```
