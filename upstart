@@ -1,0 +1,11 @@
+start on runlevel [2345]
+stop on runlevel[!2345]
+
+script
+  cd /opt/ex-pi-truck
+  export HOME=/root
+  export MIX_ENV=prod
+  export LC_CTYPE=en_US.UTF-8
+  export PATH=/opt/elixir-1.0.4/bin:$PATH
+  elixir --sname truck --cookie pi --no-halt -S mix run
+end script
