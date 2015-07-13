@@ -11,6 +11,7 @@ defmodule Truck do
       worker(Gpio, [22, [name: :left]], id: :left),
       worker(Gpio, [23, [name: :forwards]], id: :forwards),
       worker(Gpio, [24, [name: :backwards]], id: :backwards),
+      worker(Wanderer, [false]),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
