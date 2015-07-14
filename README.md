@@ -43,10 +43,30 @@ Now run `sudo raspi-config` and make the following changes.
 * Change the hostname to pi1
 
 ### Configure WiFi
-This setup is based on [these WiFi Settings](http://www.andreagrandi.it/2014/09/02/how-to-configure-edimax-ew-7811un-wifi-dongle-on-raspbian/).
 
-* `nano /etc/network/interfaces`
 
+
+`/etc/wpa_supplicant/wpa_supplicant.conf`
+```
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+    ssid="pifi"
+    psk="pifipifi"
+    id_str="pifi"
+    priority=1
+}
+
+network={
+    ssid="SomeSecondarySSID"
+    psk="OtherPassword"
+    id_str="home"
+    priority=2
+}
+```
+
+`/etc/network/interfaces`
 ```
 auto lo
 iface lo inet loopback
@@ -56,11 +76,11 @@ allow-hotplug eth0
 iface eth0 inet manual
 
 allow-hotplug wlan0
-auto wlan0
+iface wlan0 inet manual
+wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
 
-iface wlan0 inet dhcp
-wpa-ssid YOURESSID
-wpa-psk YOURWPAPASSWORD
+iface pifi inet dhcp
+iface home inet dhcp
 ```
 
 ### Install Erlang-mini
